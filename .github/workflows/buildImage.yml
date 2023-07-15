@@ -36,6 +36,7 @@ jobs:
     - name: Build and test Spring Boot project
       run: |
         cd ./API-Server
+        chmod +x ./gradlew
         ./gradlew build --no-daemon
       
     - name: Configure AWS credentials
@@ -52,6 +53,8 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       run: |
+        cd ./API-Server
+        
         # docker build
         docker build -t $IMAGE_NAME .
           
