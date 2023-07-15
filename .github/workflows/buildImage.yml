@@ -14,6 +14,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+          working-directory: ./API-Server
 
     steps:
     - name : echo github.ref_name
@@ -21,11 +23,6 @@ jobs:
       
     - name: Checkout repository
       uses: actions/checkout@v2
-      
-    - name : change directory
-      run : |
-        cd ./API-Server
-        ls
 
     - name: Set up Java
       uses: actions/setup-java@v2
@@ -35,9 +32,12 @@ jobs:
 
     - name: Build and test Spring Boot project
       run: |
-        cd ./API-Server
+        touch ./src/main/resources/application-test.yml
+        echo "${{ secrets.APPLICATION_TEST_YML }}" > ./src/main/resources/application-test.yml
+        cat ./src/main/resources/application-test.yml
         chmod +x ./gradlew
         ./gradlew build --no-daemon
+      working-directory: ${{ env.working-directory }}
       
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -65,3 +65,4 @@ jobs:
         # upload img(:latest) to ECR
         docker tag $IMAGE_NAME $ECR_ROOT/$ECR_REPOSITORY:latest
         docker push $ECR_ROOT/$ECR_REPOSITORY:latest
+      working-directory: ${{ env.working-directory }}
