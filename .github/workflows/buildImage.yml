@@ -35,6 +35,7 @@ jobs:
 
     - name: Build and test Spring Boot project
       run: |
+        cd ./API-Server
         chmod +x ./gradlew
         ./gradlew build --no-daemon
       
