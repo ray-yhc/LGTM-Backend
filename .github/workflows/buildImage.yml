@@ -36,7 +36,7 @@ jobs:
         echo "${{ secrets.APPLICATION_TEST_YML }}" > ./src/main/resources/application-test.yml
         cat ./src/main/resources/application-test.yml
         chmod +x ./gradlew
-        mkdir ./src/main/resources/static/docs
+        mkdir -p ./src/main/resources/static/docs
         ./gradlew build --no-daemon
       working-directory: ${{ env.working-directory }}
       
