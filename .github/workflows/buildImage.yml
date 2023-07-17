@@ -54,8 +54,6 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       run: |
-        cd ./API-Server
-        
         # docker build
         docker build -t $IMAGE_NAME .
           
