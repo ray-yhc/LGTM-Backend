@@ -8,8 +8,8 @@ on:
 
 env:
       ECR_ROOT: ${{ secrets.AWS_ECR_ROOT }}
-      ECR_REPOSITORY: ${{ github.repository }}
-      IMAGE_NAME: ${{ github.repository }}:${{ github.ref_name }}_0.0.${{ github.run_number }} 
+      ECR_REPOSITORY: lgtm-server
+      IMAGE_NAME: $ECR_REPOSITORY:${{ github.ref_name }}_0.0.${{ github.run_number }} 
 
 jobs:
   build:
@@ -18,13 +18,6 @@ jobs:
       working-directory: ./API-Server
 
     steps:
-    - name: Convert ECR_REPOSITORY to lowercase
-      run: |
-        echo "Original ECR_REPOSITORY: $ECR_REPOSITORY"
-        ECR_REPOSITORY_LOWER=$(echo "$ECR_REPOSITORY" | tr '[:upper:]' '[:lower:]')
-        echo "Lowercase ECR_REPOSITORY: $ECR_REPOSITORY_LOWER"
-        echo "::set-env name=ECR_REPOSITORY::$ECR_REPOSITORY_LOWER"
-      
     - name: Checkout repository
       uses: actions/checkout@v2
 
