@@ -1,11 +1,5 @@
 name: Build Image and Push to ECR
 
-
-env:
-  ECR_ROOT: ${{ secrets.AWS_ECR_ROOT }}
-  ECR_REPOSITORY: ${{ github.repository | lower() }}
-  IMAGE_NAME: ${{ github.repository | lower() }}:${{ github.ref_name }}_0.0.${{ github.run_number }} 
-
 on:
   push:
     branches:
@@ -15,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+          ECR_ROOT: ${{ secrets.AWS_ECR_ROOT }}
+          ECR_REPOSITORY: ${{ github.repository | lower() }}
+          IMAGE_NAME: ${{ github.repository | lower() }}:${{ github.ref_name }}_0.0.${{ github.run_number }} 
           working-directory: ./API-Server
 
     steps:
