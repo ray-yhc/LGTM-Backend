@@ -9,13 +9,13 @@ on:
 env:
       ECR_ROOT: ${{ secrets.AWS_ECR_ROOT }}
       ECR_REPOSITORY: lgtm-server
+      IMAGE_NAME: lgtm-server:${{ github.ref_name }}_0.0.${{ github.run_number }} 
       
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       working-directory: ./API-Server
-      IMAGE_NAME: $ECR_REPOSITORY:${{ github.ref_name }}_0.0.${{ github.run_number }} 
 
     steps:
     - name: init echo
